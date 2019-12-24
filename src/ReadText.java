@@ -1,22 +1,31 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
 public class ReadText {
-    private Path path = Paths.get("map.txt");
-    private List<String> text = Files.readAllLines(path);
+    ArrayList<String> readMap(){
+        try {
+            File file = new File("map.txt");
 
-    public ReadText() throws IOException {
-        try{
+            if (!file.exists()) {
+                System.out.print("ファイルが存在しません");
+                return null;
+            }
 
-        }
-        catch(IOException){
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String data;
+            while ((data = bufferedReader.readLine()) != null) {
+                System.out.println(data);
+            }
+
+            bufferedReader.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
             System.out.println("迷路のデータでエラーが発生しました。プログラムを終了します。");
-            System.exit(0);
         }
     }
-
 }
